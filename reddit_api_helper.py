@@ -41,15 +41,3 @@ class RedditAPIHelper(object):
         if resp.status_code != 200:
             return
         return json.loads(resp.content)
-
-    # PROBABLY IN TEH NEXT CLASS
-    #def __init__(self):
-    #    self.api = RedditAPIHelper()
-    #    self.req_headers = self.api.get_request_headers()
-
-    #def get_post_item(self, post, item_id):
-    #    item = post.get('data', {}).get(item_id)
-    #    return item
-
-    #def get_post_text(self, post):
-    #    return self.get_post_item(post, 'selftext')
