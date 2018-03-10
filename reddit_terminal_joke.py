@@ -1,3 +1,5 @@
+from random import randint
+
 from reddit_api_helper import RedditAPIHelper
 
 
@@ -30,15 +32,17 @@ class RedditJokeFetcher(object):
         that stays on the front page), that actually has a title, actually
         has text, and has a reasonable number of upvotes.
         """
-        # It's more clear than a list comprehension, okay? Sue me.
-        for post in candidates:
-            stickied = self._get_post_item(post, 'stickied')
-            title = self._get_post_item(post, 'title')
-            text = self._get_post_item(post, 'selftext')
-            upvotes = self._get_post_item(post, 'ups')
+        candidates = [
+            post for post in candidates
+                if not self._get_post_item(post, 'stickied')
+                and self._get_post_item(post, 'title')
+                and self._get_post_item(post, 'selftext')
+                and self._get_post_item(post, 'ups') >= self.REQUIRED_UPVOTES
+        ]
+        # Let's try to change things up..
+        decent = candidates[randint(0, len(candidates) - 1)]
 
-            if not stickied and title and text and upvotes >= self.REQUIRED_UPVOTES:
-                return (title, text)
+        return (decent['data']['title'], decent['data']['selftext'])
 
 
 def main():

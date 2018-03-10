@@ -7,7 +7,7 @@ from requests.auth import HTTPBasicAuth
 
 class RedditAPIHelper(object):
 
-    POST_LIMIT = 100
+    POST_LIMIT = 500
 
     def get_request_headers(self):
         """Just get a simple header for reddit requests
