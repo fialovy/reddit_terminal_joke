@@ -41,5 +41,6 @@ class RedditAPIHelper(object):
     def get_reddit_response(self, url, headers={}, params={}):
         resp = requests.get(url, params=params, headers=headers)
         if resp.status_code != 200:
+            print("You don't get a joke today. Poor you.")
             return
         return json.loads(resp.content)

@@ -3,12 +3,14 @@ from reddit_api_helper import RedditAPIHelper
 
 class RedditJokeFetcher(object):
 
-    REQUIRED_UPVOTES = 500
+    REQUIRED_UPVOTES = 500  # Be pickier if you want.
 
     def __init__(self):
+        """Instantiate our little friend to make all the HTTP requests."""
         self.api = RedditAPIHelper()
 
     def _get_post_item(self, post, item_id):
+        """dict diggity diggin'"""
         return post.get('data', {}).get(item_id)
 
     def get_jokes_posts(self):
@@ -22,26 +24,28 @@ class RedditJokeFetcher(object):
         return jokes_posts
 
     def get_decent_joke(self, candidates):
-        # Attempt to trim off announcements or whatnot that are automatically
-        # at the top. Hopefully no more than 3 of those buggers.
-        import pdb; pdb.set_trace()     
-        candidates = candidates[3:]
+        """Get a hopefully decent joke from a list of candidate posts.
 
+        We want something hot that is NOT stickied (that announcement stuff
+        that stays on the front page), that actually has a title, actually
+        has text, and has a reasonable number of upvotes.
+        """
+        # It's more clear than a list comprehension, okay? Sue me.
         for post in candidates:
-            # It's more clear than a list comprehension, okay? Sue me.
-            title = self._get_post_item('title')
-            text = self._get_post_item('selftext')
-            upvotes = self._get_post_item('ups')  # At least I think, anyway
+            stickied = self._get_post_item(post, 'stickied')
+            title = self._get_post_item(post, 'title')
+            text = self._get_post_item(post, 'selftext')
+            upvotes = self._get_post_item(post, 'ups')
 
-            if title and text and upvotes >= self.REQUIRED_UPVOTES:
+            if not stickied and title and text and upvotes >= self.REQUIRED_UPVOTES:
                 return (title, text)
 
 
 def main():
     fetcher = RedditJokeFetcher()
     candidates = fetcher.get_jokes_posts()
-    joke = fetcher.get_decent_joke(candidates)
-    print joke
+    title, joketext = fetcher.get_decent_joke(candidates)
+    print('{}\n\n{}\n'.format(title, joketext))
 
 
 if __name__ == '__main__':
