@@ -5,7 +5,7 @@ from reddit_api_helper import RedditAPIHelper
 
 class RedditJokeFetcher(object):
 
-    REQUIRED_UPVOTES = 500  # Be pickier if you want.
+    REQUIRED_UPVOTES = 100  # Be pickier if you want.
 
     def __init__(self):
         """Instantiate our little friend to make all the HTTP requests."""
