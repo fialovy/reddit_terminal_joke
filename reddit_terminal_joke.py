@@ -49,7 +49,7 @@ def main():
     fetcher = RedditJokeFetcher()
     candidates = fetcher.get_jokes_posts()
     title, joketext = fetcher.get_decent_joke(candidates)
-    print('{}\n\n{}\n'.format(title, joketext))
+    print('{}\n\n{}\n'.format(title.encode('utf-8'), joketext.encode('utf-8')))
 
 
 if __name__ == '__main__':
