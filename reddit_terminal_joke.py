@@ -7,31 +7,42 @@ class RedditJokeFetcher(object):
 
     def __init__(self):
         self.api = RedditAPIHelper()
-        self.req_headers = self.api.get_request_headers()
 
-    def get_post_item(self, post, item_id):
-        item = post.get('data', {}).get(item_id)
-        return item
+    def _get_post_item(self, post, item_id):
+        return post.get('data', {}).get(item_id)
 
-    def get_post_text(self, post):
-        return self.get_post_item(post, 'selftext')
+    def get_jokes_posts(self):
+        jokes_data = self.api.get_reddit_response(
+            'http://www.reddit.com/r/Jokes.json',
+            params={'sort': 'hot', 'limit': self.api.POST_LIMIT},
+            headers=self.api.get_request_headers()
+        )
+        jokes_posts = (jokes_data.get('data') or {}).get('children')
+
+        return jokes_posts
+
+    def get_decent_joke(self, candidates):
+        # Attempt to trim off announcements or whatnot that are automatically
+        # at the top. Hopefully no more than 3 of those buggers.
+        import pdb; pdb.set_trace()     
+        candidates = candidates[3:]
+
+        for post in candidates:
+            # It's more clear than a list comprehension, okay? Sue me.
+            title = self._get_post_item('title')
+            text = self._get_post_item('selftext')
+            upvotes = self._get_post_item('ups')  # At least I think, anyway
+
+            if title and text and upvotes >= self.REQUIRED_UPVOTES:
+                return (title, text)
+
 
 def main():
     fetcher = RedditJokeFetcher()
-    jokes_data = fetcher.api.get_reddit_response(
-        'http://www.reddit.com/r/Jokes.json',
-        params={'sort': 'hot', 'limit': fetcher.api.POST_LIMIT},
-        headers=fetcher.api.get_request_headers())
-    jokes_posts = (jokes_data.get('data') or {}).get('children')
+    candidates = fetcher.get_jokes_posts()
+    joke = fetcher.get_decent_joke(candidates)
+    print joke
 
-    for post in jokes_posts:
-        data = post.get('data', {})
-        title = data.get('title')
-        text = data.get('selftext')
-        upvotes = data.get('ups')  # At least I think, anyway
-        if title and text and upvotes >= fetcher.REQUIRED_UPVOTES:
-            print('\n{}\n\n{}'.format(title, text))
-            return
 
 if __name__ == '__main__':
     main()
