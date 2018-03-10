@@ -3,3 +3,4 @@
 *.bak
 *.swo
 reddit_credentials.py
+reddit_joke_cache.json
