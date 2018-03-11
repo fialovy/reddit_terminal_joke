@@ -38,6 +38,7 @@ REDDIT_PW = <throwaway_reddit_account_password>
 
 You can quite literally add `python /path/to/your/reddit_terminal_joke/reddit_terminal_joke.py` to the bottom of your **.bashrc** file, and it will run! :D    
 
+**Step 5: wait til I land tests and cache_foolery branch o' despair**
 
 
 
