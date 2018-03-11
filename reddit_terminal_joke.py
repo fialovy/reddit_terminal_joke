@@ -60,13 +60,15 @@ class RedditJokeFetcher(object):
 
     def _get_cached_jokes(self):
         """Return jokes from cache if they exist there; None otherwise."""
-        with open(self._get_cache_path(), 'r') as cache_file:
-            try:
+        try:
+            with open(self._get_cache_path(), 'r') as cache_file:
                 jokes = json.loads(cache_file.read())
-            except ValueError:  # mmm...l'empty?
-                return None
+        except IOError:  # file no exist?
+            return None
+        except ValueError:  # mmm...l'empty?
+            return None
 
-            return jokes
+        return jokes
 
     def _get_jokes_and_fill_cache(self):
         """Get fresh jokes from Reddit, write to cache while at it, and return them."""
