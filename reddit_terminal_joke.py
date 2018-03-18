@@ -11,15 +11,15 @@ class RedditJokeFetcher(object):
     REQUIRED_UPVOTES = 100  # Be pickier if you want.
     CACHE_FILENAME = 'reddit_joke_cache.json'
 
+    def __init__(self):
+        """Instantiate our little friend to make all the HTTP requests."""
+        self.api = RedditAPIHelper()
+
     def _get_jokes_url(self):
         return 'http://www.reddit.com/r/Jokes.json',
 
     def _get_jokes_url_params(self):
         return {'sort': 'hot', 'limit': self.api.POST_LIMIT},
-
-    def __init__(self):
-        """Instantiate our little friend to make all the HTTP requests."""
-        self.api = RedditAPIHelper()
 
     def _get_cache_path(self):
         """Return le fancy path to joke cache for file open shenanigans"""
