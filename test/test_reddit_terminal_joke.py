@@ -1,7 +1,8 @@
 import unittest
 import vcr
 
-from reddit_terminal_joke import RedditTerminalJoke
+from reddit_api_helper import RedditAPIHelper
+from reddit_terminal_joke import RedditJokeFetcher
 
 
 class RedditAPIHelperTest(unittest.TestCase):
@@ -17,7 +18,21 @@ class RedditAPIHelperTest(unittest.TestCase):
         with vcr.use_cassette('vcr_cassettes/get_reddit_response.yaml'):
             raise NotImplementedError
 
-class RedditTerminalJokeTest(unittest.TestCase):
+class RedditJokeFetcherTest(unittest.TestCase):
+
+    def __init__(self):
+        self.fetcher = RedditJokeFetcher()
+
+    def test_get_jokes_url(self):
+        """OMG IS THIS EVEN USEFUL"""
+        self.assertEqual(
+            self.fecher.get_jokes_url(), 'http://www.reddit.com/r/Jokes.json')
+
+    def test_get_jokes_url_params(self):
+        """mmm does unittest library work? great!"""
+        self.assertEqual(
+            self.fetcher.get_jokes_url_params(),
+            {'sort': 'hot', 'limit': RedditAPIHelper.POST_LIMIT})
 
     def test_get_post_item(self):
         raise NotImplementedError
