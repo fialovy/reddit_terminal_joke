@@ -1,7 +1,21 @@
 import unittest
+import vcr
 
 from reddit_terminal_joke import RedditTerminalJoke
 
+
+class RedditAPIHelperTest(unittest.TestCase):
+
+    def test_get_request_headers(self):
+        raise NotImplementedError
+
+    def test_get_auth_request_headers(self):
+        raise NotImplementedError
+
+    def test_get_reddit_response(self):
+        """VCR lets us record and reuse HTTP interactions."""
+        with vcr.use_cassette('vcr_cassettes/get_reddit_response.yaml'):
+            raise NotImplementedError
 
 class RedditTerminalJokeTest(unittest.TestCase):
 
