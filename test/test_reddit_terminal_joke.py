@@ -7,6 +7,9 @@ from reddit_terminal_joke import RedditJokeFetcher
 
 class RedditAPIHelperTest(unittest.TestCase):
 
+    def __init__(self):
+        self.api = RedditAPIHelper()
+
     def test_get_request_headers(self):
         raise NotImplementedError
 
@@ -17,6 +20,7 @@ class RedditAPIHelperTest(unittest.TestCase):
         """VCR lets us record and reuse HTTP interactions."""
         with vcr.use_cassette('vcr_cassettes/get_reddit_response.yaml'):
             raise NotImplementedError
+
 
 class RedditJokeFetcherTest(unittest.TestCase):
 
