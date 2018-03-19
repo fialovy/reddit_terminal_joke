@@ -7,8 +7,9 @@ from reddit_terminal_joke import RedditJokeFetcher
 
 class RedditAPIHelperTest(unittest.TestCase):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.api = RedditAPIHelper()
+        super(RedditAPIHelperTest, self).__init__(*args, **kwargs)
 
     def test_get_request_headers(self):
         raise NotImplementedError
@@ -24,18 +25,19 @@ class RedditAPIHelperTest(unittest.TestCase):
 
 class RedditJokeFetcherTest(unittest.TestCase):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.fetcher = RedditJokeFetcher()
+        super(RedditJokeFetcherTest, self).__init__(*args, **kwargs)
 
     def test_get_jokes_url(self):
         """OMG IS THIS EVEN USEFUL"""
         self.assertEqual(
-            self.fecher.get_jokes_url(), 'http://www.reddit.com/r/Jokes.json')
+            self.fetcher._get_jokes_url(), 'http://www.reddit.com/r/Jokes.json')
 
     def test_get_jokes_url_params(self):
         """mmm does unittest library work? great!"""
         self.assertEqual(
-            self.fetcher.get_jokes_url_params(),
+            self.fetcher._get_jokes_url_params(),
             {'sort': 'hot', 'limit': RedditAPIHelper.POST_LIMIT})
 
     def test_get_post_item(self):

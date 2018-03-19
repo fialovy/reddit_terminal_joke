@@ -16,10 +16,10 @@ class RedditJokeFetcher(object):
         self.api = RedditAPIHelper()
 
     def _get_jokes_url(self):
-        return 'http://www.reddit.com/r/Jokes.json',
+        return 'http://www.reddit.com/r/Jokes.json'
 
     def _get_jokes_url_params(self):
-        return {'sort': 'hot', 'limit': self.api.POST_LIMIT},
+        return {'sort': 'hot', 'limit': self.api.POST_LIMIT}
 
     def _get_cache_path(self):
         """Return le fancy path to joke cache for file open shenanigans"""
