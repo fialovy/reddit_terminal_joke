@@ -7,9 +7,9 @@ from reddit_terminal_joke import RedditJokeFetcher
 
 class RedditAPIHelperTest(unittest.TestCase):
 
-    def __init__(self, *args, **kwargs):
+    def setUp(self):
         self.api = RedditAPIHelper()
-        super(RedditAPIHelperTest, self).__init__(*args, **kwargs)
+        super(RedditAPIHelperTest, self).setUp()
 
     def test_get_request_headers(self):
         raise NotImplementedError
@@ -25,9 +25,9 @@ class RedditAPIHelperTest(unittest.TestCase):
 
 class RedditJokeFetcherTest(unittest.TestCase):
 
-    def __init__(self, *args, **kwargs):
+    def setUp(self):
         self.fetcher = RedditJokeFetcher()
-        super(RedditJokeFetcherTest, self).__init__(*args, **kwargs)
+        super(RedditJokeFetcherTest, self).setUp()
 
     def test_get_jokes_url(self):
         """OMG IS THIS EVEN USEFUL"""
