@@ -1,3 +1,4 @@
+import reddit_credentials as creds
 import unittest
 import vcr
 
@@ -12,10 +13,19 @@ class RedditAPIHelperTest(unittest.TestCase):
         super(RedditAPIHelperTest, self).setUp()
 
     def test_get_request_headers(self):
-        raise NotImplementedError
+        self.assertEqual(
+            self.api.get_request_headers(),
+            {"User-Agent": creds.REDDIT_USER_AGENT}
+        )
 
     def test_get_auth_request_headers(self):
-        raise NotImplementedError
+        with vcr.use_cassette('vcr_cassettes/get_auth_request_headers.yaml'):
+            # do we actually want to pass token from vcr, or be smarter?
+            self.assertEqual(
+                self.api.get_auth_request_headers(),
+                {"Authorization": "bearer %s" % 'zFC5KdTu7_QIspTRE36XlJDbO-M',
+                 "User-Agent": creds.REDDIT_USER_AGENT}
+            )
 
     def test_get_reddit_response(self):
         """VCR lets us record and reuse HTTP interactions."""
