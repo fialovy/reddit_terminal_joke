@@ -26,9 +26,15 @@ class RedditJokeFetcher(object):
         """dict diggity diggin'"""
         return post.get('data', {}).get(item_id)
 
+    def _get_jokes_url(self):
+        return 'http://www.reddit.com/r/Jokes.json'
+
+    def _get_jokes_url_params(self):
+        return {'sort': 'hot', 'limit': self.api.POST_LIMIT}
+
     def _get_jokes_posts(self):
         jokes_data = self.api.get_reddit_response(
-            'http://www.reddit.com/r/Jokes.json',
+            self._get_jokes_url(),
             params=self._get_jokes_url_params(),
             headers=self.api.get_request_headers()
         )
