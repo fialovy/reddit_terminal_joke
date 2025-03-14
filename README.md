@@ -1,5 +1,5 @@
 # reddit_terminal_joke (updated to use [uv](https://docs.astral.sh/uv/) since March 2025, hopefully)
-Display a well-upvoted reddit joke upon opening your terminal. Because you use a terminal, right? Good!
+Display a well-upvoted reddit joke on your command line.
 
 **Step 0: Clone this repo and make sure you have `uv`**
 
