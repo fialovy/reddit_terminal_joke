@@ -98,7 +98,7 @@ def main():
     fetcher = RedditJokeFetcher()
     joke = fetcher.get_decent_joke()
     print(
-        "{}\n\n{}\n".format(joke["title"].encode("utf-8"), joke["text"].encode("utf-8"))
+        "{}\n\n{}\n".format(joke["title"], joke["text"])
     )
 
 
