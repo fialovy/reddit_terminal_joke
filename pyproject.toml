@@ -1,0 +1,11 @@
+[project]
+name = "reddit-terminal-joke"
+version = "0.2.0"
+description = "Updated (for 2025) reddit joke fetcher for terminal display"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+    "requests>=2.32.3",
+]

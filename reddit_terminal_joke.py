@@ -1,15 +1,13 @@
 import json
 import os
-
 from random import randint
 
 from reddit_api_helper import RedditAPIHelper
 
 
 class RedditJokeFetcher(object):
-
     REQUIRED_UPVOTES = 100  # Be pickier if you want.
-    CACHE_FILENAME = 'reddit_joke_cache.json'
+    CACHE_FILENAME = "reddit_joke_cache.json"
 
     def __init__(self):
         """Instantiate our little friend to make all the HTTP requests."""
@@ -18,27 +16,28 @@ class RedditJokeFetcher(object):
     def _get_cache_path(self):
         """Return le fancy path to joke cache for file open shenanigans"""
         __location__ = os.path.realpath(
-            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+            os.path.join(os.getcwd(), os.path.dirname(__file__))
+        )
 
         return os.path.join(__location__, self.CACHE_FILENAME)
 
     def _get_post_item(self, post, item_id):
         """dict diggity diggin'"""
-        return post.get('data', {}).get(item_id)
+        return post.get("data", {}).get(item_id)
 
     def _get_jokes_url(self):
-        return 'http://www.reddit.com/r/Jokes.json'
+        return "http://www.reddit.com/r/Jokes.json"
 
     def _get_jokes_url_params(self):
-        return {'sort': 'hot', 'limit': self.api.POST_LIMIT}
+        return {"sort": "hot", "limit": self.api.POST_LIMIT}
 
     def _get_jokes_posts(self):
         jokes_data = self.api.get_reddit_response(
             self._get_jokes_url(),
             params=self._get_jokes_url_params(),
-            headers=self.api.get_request_headers()
+            headers=self.api.get_request_headers(),
         )
-        jokes_posts = (jokes_data.get('data') or {}).get('children')
+        jokes_posts = (jokes_data.get("data") or {}).get("children")
 
         return jokes_posts
 
@@ -51,23 +50,24 @@ class RedditJokeFetcher(object):
         """
         candidates = self._get_jokes_posts()
         candidates = [
-            post for post in candidates
-                if not self._get_post_item(post, 'stickied')
-                and self._get_post_item(post, 'title')
-                and self._get_post_item(post, 'selftext')
-                and self._get_post_item(post, 'ups') >= self.REQUIRED_UPVOTES
+            post
+            for post in candidates
+            if not self._get_post_item(post, "stickied")
+            and self._get_post_item(post, "title")
+            and self._get_post_item(post, "selftext")
+            and self._get_post_item(post, "ups") >= self.REQUIRED_UPVOTES
         ]
         # I am genuinely sorry for how ugly this is...
         candidates = [
-            {'title': post['data']['title'], 'text': post['data']['selftext']}
-                for post in candidates
+            {"title": post["data"]["title"], "text": post["data"]["selftext"]}
+            for post in candidates
         ]
         return candidates
 
     def _get_cached_jokes(self):
         """Return jokes from cache if they exist there; None otherwise."""
         try:
-            with open(self._get_cache_path(), 'r') as cache_file:
+            with open(self._get_cache_path(), "r") as cache_file:
                 jokes = json.loads(cache_file.read())
         except IOError:  # file no exist?
             return None
@@ -79,7 +79,7 @@ class RedditJokeFetcher(object):
     def _get_jokes_and_fill_cache(self):
         """Get fresh jokes from Reddit, write to cache while at it, and return them."""
         candidates = self._get_joke_candidates()
-        with open(self._get_cache_path(), 'w') as cache_file:
+        with open(self._get_cache_path(), "w") as cache_file:
             json.dump(candidates, cache_file)
 
         return candidates
@@ -97,9 +97,10 @@ class RedditJokeFetcher(object):
 def main():
     fetcher = RedditJokeFetcher()
     joke = fetcher.get_decent_joke()
-    print('{}\n\n{}\n'.format(
-        joke['title'].encode('utf-8'), joke['text'].encode('utf-8')))
+    print(
+        "{}\n\n{}\n".format(joke["title"].encode("utf-8"), joke["text"].encode("utf-8"))
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
