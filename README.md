@@ -4,7 +4,7 @@ Display a well-upvoted [reddit joke](https://www.reddit.com/r/Jokes/) on your co
 **Step 0: Clone this repo and make sure you have `uv`**
 
 [uv](https://docs.astral.sh/uv/getting-started/installation/) is a Python package
-installer and resolver that isn't...well, a [dumpster fire](https://nielscautaerts.xyz/python-dependency-management-is-a-dumpster-fire.html).
+installer and resolver that isn't...well, a [dumpster fire](https://nielscautaerts.xyz/python-dependency-management-is-a-dumpster-fire.html). It might be a bit much for this, but, hey...I wanted black and isort, too.
 
 
 **Step 1: Be able to make reddit API calls**
