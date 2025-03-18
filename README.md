@@ -12,7 +12,7 @@ installer and resolver that isn't...well, a [dumpster fire](https://nielscautaer
 You have to do a little actual work for this. Tragic, I know.
 
 Nowadays, it's a lot easier to just use [praw](https://praw.readthedocs.io/en/stable/getting_started/quick_start.html) to deal with reddit + Python, but for laziness' sake (after all, it took me
-five years to remove the requirements.txt 🙃), we'll stick with `HTTPBasicAuth` since it
+five years to remove the requirements.txt 🙃), we'll stick with `requests` and `HTTPBasicAuth` since it
 still appears to work just fine (on my machine™️).
 
 First, you'll need to obtain a reddit account if you don't have one already, and
