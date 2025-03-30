@@ -22,7 +22,8 @@ your own client ID and client secret. I chose 'script' as the type and a placeho
 purposes here.
 
 Next, add a **reddit_credentials.py** file in your reddit_terminal_joke repo.
-Obviously, it should be `.gitignore`d. I recommend following the formatting examples
+Obviously, it should be `.gitignore`d - or, better yet, use environment variables or
+something and don't even risk it. I recommend following the formatting examples
 in [praw.ini](https://praw.readthedocs.io/en/stable/getting_started/configuration/prawini.html#using-interpolation)'s documentation for constructing the user agent string:
 
 ```
